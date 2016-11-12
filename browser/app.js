@@ -9,8 +9,13 @@ angular.module('app')
 	.config(function($stateProvider){
 		$stateProvider
 			.state('home', {
-				url: '/',
+				url: '/home',
 				templateUrl: '/home.html',
 				controller: 'HomeCtrl'
+			})
+			.state('remote', {
+				url: '/remote',
+				templateUrl: '/remote.html',
+				controller: 'RemoteCtrl'
 			})
 	})

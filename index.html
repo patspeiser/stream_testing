@@ -6,11 +6,14 @@
 	<script src='/angular-ui-router/release/angular-ui-router.js'></script>
 	<script src='/socket.io-client/socket.io.js'></script>
 	<script src='/socket.io-stream/socket.io-stream.js'></script>
-	<script src="http://cdn.peerjs.com/0.3/peer.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/peerjs/0.3.14/peer.js"></script>
 	<script src='app.js'></script>
 	<script src='home.controller.js'></script>
+	<script src='remote.controller.js'></script>
 </head>
 	<body ng-app='app'>
+		<a ui-sref='home'>Home</a>	
+		<a ui-sref='remote'>remote</a>	
 		<ui-view></ui-view>
 	</body>
 </html>

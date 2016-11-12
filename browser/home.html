@@ -1,14 +1,10 @@
 <div class='well'>
-	<input type='text' ng-model='user' placeholder='this is my user'/>
-	<input type='text' ng-model='userToCall' placeholder='this is the user im calling'/>
-	<button ng-click='setUser(user, userToCall)' class='btn btn-primary'>Create Streams</button>
+	<h1> Home Stream </h1>
+	<input type='text' ng-model='user' placeholder='broadcaster name'/>
+	<button ng-click='broadcast(user)' class='btn btn-primary'>Create Broadcast</button>
 	<p></p>
 	Local
 	<div class='container'>
 		<video id='local' autoplay></video>
-	</div>
-	Remote
-	<div class='container'>
-		<video id='remote' autoplay></video>
 	</div>
 </div>

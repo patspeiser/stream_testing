@@ -1,0 +1,11 @@
+<div class='well'>
+	<h1> Remote Stream </h1>
+	<input type='text' ng-model='myName' placeholder='myName'/>
+	<input type='text' ng-model='broadcasterName' placeholder='broadcasterName'/>
+	<button ng-click='tuneInTo(myName, broadcasterName)' class='btn btn-primary'>Get Broadcast</button>
+	<p></p>
+	Remote
+	<div class='container'>
+		<video id='remote' autoplay></video>
+	</div>
+</div>

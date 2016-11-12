@@ -7,10 +7,11 @@ const fs = require('fs');
 
 var serverOptions = {
 	key: fs.readFileSync('server.key'),
-	cert: fs.readFileSync('server.crt')	
+	cert: fs.readFileSync('server.crt'),
+	passphrase: 'supertest'	
 }
 
-const server = require ('http').createServer(app);
+const server = require ('https').createServer(serverOptions, app);
 const io = require('socket.io')(server);
 
 module.exports = app;
