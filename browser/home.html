@@ -1,9 +1,10 @@
 <div class='well'>
 	<h1> Home Stream </h1>
-	<input type='text' ng-model='user' placeholder='broadcaster name'/>
-	<button ng-click='broadcast(user)' class='btn btn-primary'>Create Broadcast</button>
+	<p>You will broadcast as: {{user}}</p>
+	<!-- <input type='text' ng-model='user' placeholder='broadcaster name'/> -->
+	<button ng-click='broadcast()' class='btn btn-primary'>Create Broadcast</button>
 	<p></p>
-	Local
+	Local Stream (from your webcam);
 	<div class='container'>
 		<video id='local' autoplay></video>
 	</div>

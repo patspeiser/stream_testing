@@ -12,8 +12,10 @@
 	<script src='remote.controller.js'></script>
 </head>
 	<body ng-app='app'>
-		<a ui-sref='home'>Home</a>	
-		<a ui-sref='remote'>remote</a>	
+		<ul class='nav nav-tabs'>
+			<li class='ui-sref-active'> <a ui-sref='home'><h3>Home</h3></a></li>	
+			<li class='ui-sref-active'> <a ui-sref='remote'><h3>Remote</h3></a></li>
+		</ul>	
 		<ui-view></ui-view>
 	</body>
 </html>

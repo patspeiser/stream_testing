@@ -8,7 +8,7 @@ const fs = require('fs');
 var serverOptions = {
 	key: fs.readFileSync('server.key'),
 	cert: fs.readFileSync('server.crt'),
-	passphrase: 'supertest'	
+	passphrase: ''	
 }
 
 const server = require ('https').createServer(serverOptions, app);
@@ -38,9 +38,9 @@ io.on('connection', function(peer){
 	console.log(peer.id, 'connected');
 });
 
-io.on('disconnect', function(peer){
-	console.log(peer.id, 'disconnected');
-})
+// io.on('disconnect', function(peer){
+// 	console.log(peer.id, 'disconnected');
+// })
 
 // server is a-listenin'
 server.listen(3030, function(){

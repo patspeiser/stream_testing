@@ -11,11 +11,21 @@ angular.module('app')
 			.state('home', {
 				url: '/home',
 				templateUrl: '/home.html',
-				controller: 'HomeCtrl'
+				controller: 'HomeCtrl',
+				resolve: {
+					user: function(){
+						return 'MyUser'
+					}
+				}
 			})
 			.state('remote', {
 				url: '/remote',
 				templateUrl: '/remote.html',
-				controller: 'RemoteCtrl'
+				controller: 'RemoteCtrl',
+				resolve: {
+					user: function(){
+						return 'RemoteUser'
+					}
+				}
 			})
 	})
