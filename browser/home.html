@@ -1,0 +1,14 @@
+<div class='well'>
+	<input type='text' ng-model='user' placeholder='this is my user'/>
+	<input type='text' ng-model='userToCall' placeholder='this is the user im calling'/>
+	<button ng-click='setUser(user, userToCall)' class='btn btn-primary'>Create Streams</button>
+	<p></p>
+	Local
+	<div class='container'>
+		<video id='local' autoplay></video>
+	</div>
+	Remote
+	<div class='container'>
+		<video id='remote' autoplay></video>
+	</div>
+</div>
