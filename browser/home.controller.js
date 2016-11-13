@@ -1,44 +1,42 @@
 angular.module('app')
 .controller('HomeCtrl', function($scope, user){
-	var socket = io();
 	$scope.user = user;
-	var peer = new Peer(user, {host: 'localhost', port: 3030, path:'/peerjs', debug: 1});
+	var videoEl = document.getElementById('video-box');
+	
+	var MODERATOR_CHANNEL_ID = 'ABCDEF-' + window.RMCDefaultChannel; 
 
-	peer.on('connection', function(conn) {
-		conn.on('data', function(data){
-		    // Will print 'hi!' 
-    		console.log('_____CONNECTION____');
-		});
-	});
-
-	peer.on('call', function(call) {
-		navigator.getUserMedia({video: true, audio: true}, function(stream) {
-	    		call.answer(stream); // Answer the call with an A/V stream.
-	    		console.log('does call ever happen?'); 
-	    		call.on('stream', function(remoteStream) {
-      			// Show stream in some <video> element. 
-      		});
-	    	}, function(err) {
-	    		console.log('Failed to get local stream' ,err);
-	    	});
-	});	
-
-	$scope.broadcast = function(){
-		//this starts my broadcast
-		navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-		console.log(peer);
-		navigator.getUserMedia({
-			video: true, audio: false
-		}, 
-		function(stream) {
-			var localVideo = document.querySelector('#local');
-			localVideo.src = window.URL.createObjectURL(stream);
-		}, 
-		function(err) {
-			console.log('Failed to get local stream' ,err);
-		});
-
-		//this accepts connects when I'm broadcasting
-		
+	var MODERATOR_SESSION_ID = 'XYZ';    // room-id
+	var MODERATOR_ID         = 'JKL';    // user-id
+	var MODERATOR_SESSION    = {         // media-type
+		audio: true,
+		video: true
 	};
+	var MODERATOR_EXTRA      = {};       // empty extra-data
+
+// moderator
+document.getElementById('open-room').onclick = function() {
+	this.disabled = true;
+
+	var moderator = new RTCMultiConnection(MODERATOR_CHANNEL_ID);
+	moderator.session = MODERATOR_SESSION;
+	moderator.userid = MODERATOR_ID;
+	moderator.extra = MODERATOR_EXTRA;
+	moderator.open({
+		dontTransmit: true,
+		sessionid: MODERATOR_SESSION_ID
+	});
+};
+
+// participants
+document.getElementById('join-room').onclick = function() {
+	this.disabled = true;
+	var participants = new RTCMultiConnection(MODERATOR_CHANNEL_ID);
+	participants.join({
+		sessionid: MODERATOR_SESSION_ID,
+		userid: MODERATOR_ID,
+		extra: MODERATOR_EXTRA,
+		session: MODERATOR_SESSION
+	});
+};
+
 })
