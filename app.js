@@ -41,6 +41,8 @@ io.on('disconnect', function(peer){
 	console.log(peer.id, 'disconnected');
 })
 
-server.listen(3030, function(){
+var port = process.env.PORT || 3030;
+
+server.listen(port, function(){
 	console.log('listening on *:3030');
 });
