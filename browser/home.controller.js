@@ -1,43 +1,39 @@
 angular.module('app')
 .controller('HomeCtrl', function($scope, user){
 	$scope.user = user;
-	var socket = io();
-	var videoEl = document.getElementById('video-box');
-	
-	var MODERATOR_CHANNEL_ID = 'ABCDEF-' + window.RMCDefaultChannel; 
+	// var socket = io();
+	var connection = new RTCMultiConnection();
 
-	var MODERATOR_SESSION_ID = 'XYZ';    // room-id
-	var MODERATOR_ID         = 'JKL';    // user-id
-	var MODERATOR_SESSION    = {         // media-type
+	// this line is VERY_important
+	connection.socketURL = 'https://rtcmulticonnection.herokuapp.com:443/';
+
+	// all below lines are optional; however recommended.
+
+	connection.session = {
 		audio: true,
 		video: true
 	};
-	var MODERATOR_EXTRA      = {};       // empty extra-data
 
-// moderator
-document.getElementById('open-room').onclick = function() {
-	this.disabled = true;
+	connection.sdpConstraints.mandatory = {
+		OfferToReceiveAudio: true,
+		OfferToReceiveVideo: true
+	};
 
-	var moderator = new RTCMultiConnection(MODERATOR_CHANNEL_ID);
-	moderator.session = MODERATOR_SESSION;
-	moderator.userid = MODERATOR_ID;
-	moderator.extra = MODERATOR_EXTRA;
-	moderator.open({
-		dontTransmit: true,
-		sessionid: MODERATOR_SESSION_ID
-	});
+	connection.onstream = function(event) {
+		document.body.appendChild( event.mediaElement );
+	};
+
+	var predefinedRoomId = 'PATS';
+
+	document.getElementById('open-room').onclick = function() {
+	    this.disabled = true;
+	    connection.open( predefinedRoomId );
+	};
+
+	document.getElementById('join-room').onclick = function() {
+	    this.disabled = true;
+	    connection.join( predefinedRoomId );
 };
 
-// participants
-document.getElementById('join-room').onclick = function() {
-	this.disabled = true;
-	var participants = new RTCMultiConnection(MODERATOR_CHANNEL_ID);
-	participants.join({
-		sessionid: MODERATOR_SESSION_ID,
-		userid: MODERATOR_ID,
-		extra: MODERATOR_EXTRA,
-		session: MODERATOR_SESSION
-	});
-};
 
 })
