@@ -1,6 +1,7 @@
 angular.module('app')
 .controller('HomeCtrl', function($scope, user){
 	$scope.user = user;
+	var socket = io();
 	var videoEl = document.getElementById('video-box');
 	
 	var MODERATOR_CHANNEL_ID = 'ABCDEF-' + window.RMCDefaultChannel; 
