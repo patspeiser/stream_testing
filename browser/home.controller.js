@@ -1,39 +1,57 @@
 angular.module('app')
-.controller('HomeCtrl', function($scope, user){
-	$scope.user = user;
-	// var socket = io();
-	var connection = new RTCMultiConnection();
+.controller('HomeCtrl', function($scope, user, AT){
+	var socket = io();
+	var Video = Twilio.Video;
+	var client = new Video.Client(AT);
+	var localMedia = new Video.LocalMedia();
 
-	// this line is VERY_important
-	connection.socketURL = 'https://rtcmulticonnection.herokuapp.com:443/';
-
-	// all below lines are optional; however recommended.
-
-	connection.session = {
-		audio: true,
-		video: true
+	$scope.startWebcam = function(){
+		Video.getUserMedia()
+		.then(function(stream){
+			localMedia.addStream(stream);
+		});
 	};
 
-	connection.sdpConstraints.mandatory = {
-		OfferToReceiveAudio: true,
-		OfferToReceiveVideo: true
+	$scope.stopWebcam = function(){
+		localMedia.stop();
 	};
 
-	connection.onstream = function(event) {
-		document.body.appendChild( event.mediaElement );
-	};
+	$scope.connectToRoom = function(room){
+		Video.getUserMedia()
+		.then(function(stream){
+			localMedia.addStream(stream);
+			localMedia.attach('#local-video');
+			
+			client.connect({
+				to: room, 
+				localMedia: localMedia
+			})
+			.then(function(room){
+				console.log('connected to room "%s"', room.name);
+				$scope.participants = [];
+				console.log('stream', stream);
+					//After I connect to the room I get room info.
+					//I'm just getting some of that here and setting it to the scope
+					$scope.localParticipant = room.localParticipant;
 
-	var predefinedRoomId = 'PATS';
+					// //these functions act as listeners
+					// //They check when a user joins or leaves 
+					// //and emits an event
+					room.once('participantConnected', function(participant){
+						console.log('"%s" connected', participant.identity);
+					});
 
-	document.getElementById('open-room').onclick = function() {
-	    this.disabled = true;
-	    connection.open( predefinedRoomId );
-	};
+					room.once('participantDisconnected', function(participant){
+						console.log('"%s" disconnected', participant.identity);
+					});
 
-	document.getElementById('join-room').onclick = function() {
-	    this.disabled = true;
-	    connection.join( predefinedRoomId );
-};
+				})
+			.catch(function(err){
+				console.log('Failed to connect to the room', err)
+			})
+		});
+	}
+
 
 
 })

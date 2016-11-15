@@ -1,7 +1,12 @@
 <div class='well'>
-	<input type="text" id="room-id" value="abcdef">
-	<button id="open-room">Open Room</button>
-	<button id="join-room">Join Room</button>
-	<button id="open-or-join-room">Auto Open Or Join Room</button>
+	<input ng-model='roomName' type="text" id="room-id" placeholder='Room Name'>
+	<button ng-click='connectToRoom(roomName)' id="join-room">Join Room</button>
 	<hr>
+
+	<button ng-click='startWebcam()'>Start camera</button>
+	<button ng-click='stopWebcam()'>Stop camera</button>
+	<div class='container well'>
+		<div id='local-video'></div>
+	</div>
+
 </div>
