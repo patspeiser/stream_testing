@@ -1,12 +1,14 @@
 <div class='well'>
 	<input ng-model='roomName' type="text" id="room-id" placeholder='Room Name'>
-	<button ng-click='connectToRoom(roomName)' id="join-room">Join Room</button>
+	<button ng-click='connectToRoomAndBroadcast(roomName)' id="join-room">Host Room</button>
+	<button ng-click='connectToRoomOnly(roomName)' id="join-room">Join Room</button>
 	<hr>
 
 	<button ng-click='startWebcam()'>Start camera</button>
 	<button ng-click='stopWebcam()'>Stop camera</button>
 	<div class='container well'>
 		<div id='local-video'></div>
+		<div id='remote-video'></div>
 	</div>
 
 </div>

@@ -14,6 +14,7 @@
     "angular-ui-router": "^0.3.2",
     "body-parser": "^1.15.2",
     "bootstrap": "^3.3.7",
+    "dotenv": "^2.0.0",
     "express": "^4.14.0",
     "ng-simple-webrtc": "^0.22.0",
     "nodemon": "^1.11.0",
@@ -22,6 +23,7 @@
     "socket.io": "^1.5.1",
     "socket.io-client": "^1.5.1",
     "socket.io-stream": "^0.9.1",
+    "twilio": "^2.11.0",
     "twilio-video": "^1.0.0-beta2",
     "webrtc.io": "0.0.4",
     "webrtc.io-client": "0.0.2-3"
